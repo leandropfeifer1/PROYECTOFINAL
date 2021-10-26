@@ -1,4 +1,4 @@
-<!doctype html>
+>
 <html lang="es_ES">
 <?php 
 require 'constants/settings.php'; 
@@ -22,18 +22,20 @@ $page = 1;
 $servidor= "localhost";
 $usuario= "root";
 $password = "root";
-$nombreBD= "prueba";
+$nombreBD= "Proyecto2021";
 $conexion = new mysqli($servidor, $usuario, $password, $nombreBD);
 if ($conexion->connect_error) {
-    die("la conexiÃ³n ha fallado: " . $conexion->connect_error);
+    die("la conexión ha fallado: " . $conexion->connect_error);
 }
 if (!isset($_POST['buscar'])){$_POST['buscar'] = '';}
-if (!isset($_POST['buscadepartamento'])){$_POST['buscadepartamento'] = '';}
-if (!isset($_POST['color'])){$_POST['color'] = '';}
-if (!isset($_POST['buscafechadesde'])){$_POST['buscafechadesde'] = '';}
-if (!isset($_POST['buscafechahasta'])){$_POST['buscafechahasta'] = '';}
-if (!isset($_POST['buscapreciodesde'])){$_POST['buscapreciodesde'] = '';}
-if (!isset($_POST['buscapreciohasta'])){$_POST['buscapreciohasta'] = '';}
+if (!isset($_POST['buscanombre'])){$_POST['buscanombre'] = '';}
+if (!isset($_POST['buscacarrera'])){$_POST['buscacarrera'] = '';}
+if (!isset($_POST['buscaIdioma'])){$_POST['buscaIdioma'] = '';}
+if (!isset($_POST['mudarse'])){$_POST['mudarse'] = '';}
+if (!isset($_POST['buscaEdad'])){$_POST['buscaEdad'] = '';}
+if (!isset($_POST['buscaLocalidad'])){$_POST['buscaLocalidad'] = '';}
+if (!isset($_POST['buscaGenero'])){$_POST['buscaGenero'] = '';}
+if (!isset($_POST['situacion'])){$_POST['situacion'] = '';}
 if (!isset($_POST["orden"])){$_POST["orden"] = '';}
 
 ?>
@@ -87,7 +89,7 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
   }
   
   </style>
-
+  
 <body class="not-transparent-header">
 
 	<div class="container-wrapper">
@@ -139,7 +141,7 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
 						<?php
 						if ($user_online == true) {
 						print '
-						    <li><a href="logout.php">Cerrar SesiÃ³n</a></li>
+						    <li><a href="logout.php">Cerrar Sesión</a></li>
 							<li><a href="'.$myrole.'">Perfil</a></li>';
 						}else{
 						print '
@@ -191,56 +193,85 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
         <div class="col-12 row">
 
             <div class="mb-3">
-                    <label  class="form-label">Nombre a buscar</label>
-                    <input type="text" class="form-control" id="buscar" name="buscar" value="<?php echo $_POST["buscar"] ?>" >
+                    
             </div>
 
-            <h4 class="card-title">Filtro de bÃºsqueda</h4>  
+            <h4 class="card-title">Filtro de búsqueda</h4>  
             
             <div class="col-11">
 
-                        <table class="table">
+                        <table class="table"style="width:1200px">
                                 <thead>
-                                        <tr class="filters">
+                                        <tr class="filters" style="position:relative; left: 3%;"> 
+											
+                                            
+                                            
                                                 <th>
-                                                        Departamento
-                                                        <select id="assigned-tutor-filter" id="buscadepartamento" name="buscadepartamento" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
-                                                                <?php if ($_POST["buscadepartamento"] != ''){ ?>
-                                                                <option value="<?php echo $_POST["buscadepartamento"]; ?>"><?php echo $_POST["buscadepartamento"]; ?></option>
+                                                        Carrera
+                                                        <select id="assigned-tutor-filter" id="buscacarrera" name="buscacarrera" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
+                                                                <?php if ($_POST["buscacarrera"] != ''){ ?>
+                                                                <option value="<?php echo $_POST["buscacarrera"]; ?>"><?php echo $_POST["buscacarrera"]; ?></option>
                                                                 <?php } ?>
                                                                 <option value="">Todos</option>
-                                                                <option value="Compras">Compras</option>
-                                                                <option value="Ventas">Ventas</option>
-                                                                <option value="Alquileres">Alquileres</option>
+                                                                <option value="Anelista de sistemas">Analista de sistemas</option>
+                                                                <option value="Regimen aduanero">Regimen aduanero</option>
+                                                                <option value="Administracion de empresas">Administracion de empresas</option>
+                                                                <option value="Gestion Hotelera y turismo">Gestion Hotelera y turismo</option>
+                                                                
                                                         </select>
                                                 </th>
                                                 <th>
-                                                        Precio desde:
-                                                        <input type="number" id="buscapreciodesde" name="buscapreciodesde" class="form-control mt-2" value="<?php echo $_POST["buscapreciodesde"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
+                                                        Nombre:
+                                                        <input type="text"  id="buscanombre" witdh="50px" name="buscanombre"  class="form-control mt-2" value="<?php echo $_POST["buscanombre"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
                                                 </th>
                                                 <th>
-                                                        Precio hasta:
-                                                        <input type="number" id="buscapreciohasta" name="buscapreciohasta" class="form-control mt-2" value="<?php echo $_POST["buscapreciohasta"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
+                                                        Localidad:
+                                                        <input type="text" id="buscaLocalidad" name="buscaLocalidad" class="form-control mt-2" value="<?php echo $_POST["buscaLocalidad"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
                                                 </th>
                                          
                                                 <th>
-                                                        Fecha desde:
-                                                        <input type="date" id="buscafechadesde" name="buscafechadesde" class="form-control mt-2" value="<?php echo $_POST["buscafechadesde"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
+                                                        Edad :
+                                                        <input type="number" id="buscaEdad" name="buscaEdad" class="form-control mt-2" value="<?php echo $_POST["buscaEdad"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
                                                 </th>
                                                 <th>
-                                                        Fecha hasta:
-                                                        <input type="date" id="buscafechahasta" name="buscafechahasta" class="form-control mt-2" value="<?php echo $_POST["buscafechahasta"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
-                                                </th>
-                                                <th>
-                                                        Color
-                                                        <select id="subject-filter" id="color" name="color" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
-                                                                <?php if ($_POST["color"] != ''){ ?>
-                                                                <option value="<?php echo $_POST["color"]; ?>"><?php echo $_POST["color"]; ?></option>
+                                                                                                                                   <th>
+                                                        Genero :
+                                                        <select id="subject-filter" id="buscaGenero" name="buscaGenero" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
+                                                                <?php if ($_POST["buscaGenero"] != ''){ ?>
+                                                                <option value="<?php echo $_POST["buscaGenero"]; ?>"><?php echo $_POST["buscaGenero"]; ?></option>
                                                                 <?php } ?>
                                                                 <option value="">Todos</option>
-                                                                <option style="color: blue;" value="Azul">Azul</option>
-                                                                <option style="color: red;" value="Rojo">Rojo</option>
-                                                                <option style="color: orange;" value="Amarillo">Amarillo</option>
+                                                                <option style="buscaGenero: M;" value="M">M</option>
+                                                                <option style="buscaGenero: F;" value="F">F</option>
+                                                        </select>
+                                                </th>  
+                                                  <th>
+                                               
+                                                        Idioma :
+                                                        <input type="text" id="buscaIdioma" name="buscaIdioma" class="form-control mt-2" value="<?php echo $_POST["buscaIdioma"]; ?>" style="border: #bababa 1px solid; color:#000000;" >
+                                                </th> 
+                                                <th>
+                                                                                                                                   <th>
+                                                        Sit. laboral :
+                                                        <select id="subject-filter" id="situacion" name="situacion" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
+                                                                <?php if ($_POST["mudarse"] != ''){ ?>
+                                                                <option value="<?php echo $_POST["situacion"]; ?>"><?php echo $_POST["situacion"]; ?></option>
+                                                                <?php } ?>
+                                                                <option value="">Todos</option>
+                                                                <option style="situacion: Empleado;" value="Empleado">Empleado</option>
+                                                                <option style="situacion: Desempleado;" value="Desempleado">Desempleado</option>
+                                                        </select>
+                                                </th> 
+
+                                                <th>
+                                                        Disp. mudarse :
+                                                        <select id="subject-filter" id="mudarse" name="mudarse" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
+                                                                <?php if ($_POST["mudarse"] != ''){ ?>
+                                                                <option value="<?php echo $_POST["mudarse"]; ?>"><?php echo $_POST["mudarse"]; ?></option>
+                                                                <?php } ?>
+                                                                <option value="">Todos</option>
+                                                                <option style="mudarse: si;" value="si">si</option>
+                                                                <option style="mudarse: no;" value="no">no</option>
                                                         </select>
                                                 </th>
                                         </tr>
@@ -249,37 +280,36 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
                 </div>
 
 
-                <h4 class="card-title">Ordenar por</h4>  
+                 
             
             <div class="col-11">
 
-                        <table class="table">
+                        <table class="table" style="width:1200px">
                                 <thead>
-                                        <tr class="filters">
+                                        <tr class="filters" style="position:relative; left: 3%;">
                                                 <th>
                                                         Selecciona el orden
                                                         <select id="assigned-tutor-filter" id="orden" name="orden" class="form-control mt-2" style="border: #bababa 1px solid; color:#000000;" >
                                                                 <?php if ($_POST["orden"] != ''){ ?>
                                                                 <option value="<?php echo $_POST["orden"]; ?>">
                                                                 <?php 
-                                                                if ($_POST["orden"] == '1'){echo 'Ordenar por nombre';} 
-                                                                if ($_POST["orden"] == '2'){echo 'Ordenar por departamento';} 
-                                                                if ($_POST["orden"] == '3'){echo 'Ordenar por color';} 
-                                                                if ($_POST["orden"] == '4'){echo 'Ordenar por precio de menor a mayor';} 
-                                                                if ($_POST["orden"] == '5'){echo 'Ordenar por precio de mayor a menor';} 
-                                                                if ($_POST["orden"] == '6'){echo 'Ordenar por fecha de reciente';} 
-                                                                if ($_POST["orden"] == '7'){echo 'Ordenar por fecha de antigua';} 
+                                                                if ($_POST["orden"] == '1'){echo 'Ordenar por carrera';} 
+                                                                if ($_POST["orden"] == '2'){echo 'Ordenar por nombre';} 
+                                                                if ($_POST["orden"] == '3'){echo 'Ordenar por localidad';} 
+                                                                if ($_POST["orden"] == '4'){echo 'edad';} 
+                                                           
+                                                                if ($_POST["orden"] == '5'){echo 'Disp. para mudarse';} 
+                                                               
                                                                 ?>
                                                                 </option>
                                                                 <?php } ?>
                                                                 <option value=""></option>
-                                                                <option value="1">Ordenar por nombre</option>
-                                                                <option value="2">Ordenar por departamento</option>
-                                                                <option value="3">Ordenar por color</option>
-                                                                <option value="4">Ordenar por precio de menor a mayor</option>
-                                                                <option value="5">Ordenar por precio de mayor a menor</option>
-                                                                <option value="6">Ordenar por fecha de reciente</option>
-                                                                <option value="7">Ordenar por fecha de antigua</option>
+                                                                <option value="1">Ordenar por carrera</option>
+                                                                <option value="2">Ordenar por nombre</option>
+                                                                <option value="3">Ordenar por localidad</option>
+                                                                
+                                                                <option value="4">Ordenar por edad</option>
+                                                                <option value="5">disp. para mudarse</option>
                                                         </select>
                                                 </th>
                                           
@@ -289,24 +319,19 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
                                 </thead>
                         </table>
                 </div>
+           
 
 
                 <div class="col-1">
-                        <input type="submit" class="btn " value="Ver" style="margin-top: 38px; background-color: purple; color: white;">
+                        <input type="submit" class="btn "  value="Ver" style="position:relative; left: 5%; background-color: purple; color: white;">
+                        
                 </div>
         </div>
 		<div class="main-wrapper">
 
 			<div class="breadcrumb-wrapper">
 			
-				<div class="container">
 				
-					<ol class="breadcrumb-list booking-step">
-						<li><a href="./">Inicio</a></li>
-						<li><span>Employees</span></li>
-					</ol>
-					
-				</div>
 				
 			</div>
 			
@@ -314,14 +339,7 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
 			
 				<div class="container">
 				
-					<div class="sorting-wrappper">
-			
-						<div class="sorting-header">
-							<h3 class="sorting-title">Alumnos</h3>
-						</div>
-						
-		
-					</div>
+				
 					
 					<div class="employee-grid-wrapper">
 					
@@ -512,9 +530,9 @@ if (!isset($_POST["orden"])){$_POST["orden"] = '';}
 							
 								<h5 class="footer-title">Contacto Platea21</h5>
 								
-								<p>DirecciÃ³n : Tacna - PerÃº</p>
-								<p>Correo ElectrÃ³nico : <a href="mailto:gorchor@gmail.com">gorchor@gmail.com</a></p>
-								<p>TelÃ©fono: <a href="tel:+51948445199">+51948445199</a></p>
+								<p>Dirección : Tacna - Perú</p>
+								<p>Correo Electrónico : <a href="mailto:gorchor@gmail.com">gorchor@gmail.com</a></p>
+								<p>Teléfono: <a href="tel:+51948445199">+51948445199</a></p>
 								
 
 							</div>
